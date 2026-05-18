@@ -54,7 +54,6 @@ export default function AdminDashboard({ user, role }) {
   const [expandedDocs, setExpandedDocs] = useState({});
 
   // Account form state
-  const [accUsername, setAccUsername] = useState('');
   const [accPassword, setAccPassword] = useState('');
   const [accRole, setAccRole] = useState('user');
   const [accName, setAccName] = useState('');
@@ -197,9 +196,9 @@ export default function AdminDashboard({ user, role }) {
   async function handleAddAccount(e) {
     e.preventDefault();
     try {
-      await addAccount(accUsername, accRole, accName, accEmpNum, user.username);
-      setAccUsername(''); setAccName(''); setAccEmpNum('');
-      showToast(`Account "${accUsername}" created successfully.`, 'success');
+      await addAccount(accEmpNum, accRole, accName, accEmpNum, user.username);
+      setAccName(''); setAccEmpNum('');
+      showToast(`Account "${accEmpNum}" created successfully.`, 'success');
       await fetchData();
     } catch (e) {
       showToast("Failed to add account: " + (e.response?.data?.detail || e.message), 'error');
@@ -589,10 +588,6 @@ export default function AdminDashboard({ user, role }) {
                    <h3 className="text-xs font-semibold text-slate-300 mb-1 flex items-center gap-1"><PlusCircle className="w-4 h-4"/> Authorize Account</h3>
                    <p className="text-[10px] text-slate-500 mb-3 italic">User will set their own password during registration.</p>
                    <form onSubmit={handleAddAccount} className="space-y-3 w-full">
-                      <div>
-                         <label className="block text-[10px] text-slate-400 mb-1">EPF Number (Username) *</label>
-                         <input type="text" value={accUsername} onChange={e=>setAccUsername(e.target.value)} required className="input-field py-1.5 px-3 text-xs w-full" placeholder="e.g. EMP1234"/>
-                      </div>
                      <div>
                         <label className="block text-[10px] text-slate-400 mb-1">Role *</label>
                         <select value={accRole} onChange={e=>setAccRole(e.target.value)} className="input-field py-1.5 px-3 text-xs w-full cursor-pointer">
@@ -602,14 +597,14 @@ export default function AdminDashboard({ user, role }) {
                         </select>
                      </div>
                      <div>
-                        <label className="block text-[10px] text-slate-400 mb-1">Name</label>
-                        <input type="text" value={accName} onChange={e=>setAccName(e.target.value)} className="input-field py-1.5 px-3 text-xs w-full"/>
+                        <label className="block text-[10px] text-slate-400 mb-1">Name *</label>
+                        <input type="text" value={accName} onChange={e=>setAccName(e.target.value)} required className="input-field py-1.5 px-3 text-xs w-full"/>
                      </div>
                      <div>
-                        <label className="block text-[10px] text-slate-400 mb-1">Employee Number</label>
-                        <input type="text" value={accEmpNum} onChange={e=>setAccEmpNum(e.target.value)} className="input-field py-1.5 px-3 text-xs w-full"/>
+                        <label className="block text-[10px] text-slate-400 mb-1">Employee Number *</label>
+                        <input type="text" value={accEmpNum} onChange={e=>setAccEmpNum(e.target.value)} required placeholder="e.g. EMP1234" className="input-field py-1.5 px-3 text-xs w-full"/>
                      </div>
-                      <button type="submit" className="btn-primary w-full py-1.5 text-xs h-8 flex justify-center items-center">Authorize EPF</button>
+                      <button type="submit" className="btn-primary w-full py-1.5 text-xs h-8 flex justify-center items-center">Authorize Employee</button>
                   </form>
                </div>
                <div className="col-span-2 overflow-y-auto max-h-[400px] w-full">

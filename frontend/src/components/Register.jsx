@@ -46,7 +46,7 @@ export default function Register({ onBack, onComplete }) {
       setSuccess(true);
       setTimeout(() => onBack(), 2500);
     } catch (err) {
-      setError(err.response?.data?.detail || 'Registration failed. Is your EPF authorized?');
+      setError(err.response?.data?.detail || 'Registration failed. Is your Employee Number authorized?');
     } finally {
       setLoading(false);
     }
@@ -57,13 +57,13 @@ export default function Register({ onBack, onComplete }) {
       <div className="glass-card p-8 w-full max-w-lg glow-ring animate-fade-in">
         <div className="text-center mb-6">
           <h2 className="text-xl font-bold text-white">Staff Registration</h2>
-          <p className="text-xs text-slate-400 mt-1">Please enter your EPF and set up your security credentials</p>
+          <p className="text-xs text-slate-400 mt-1">Please enter your Employee Number and set up your security credentials</p>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
-              <label className="block text-[10px] text-slate-400 mb-1">EPF Number</label>
+              <label className="block text-[10px] text-slate-400 mb-1">Employee Number</label>
               <input type="text" value={username} onChange={e=>setUsername(e.target.value)} required className="input-field py-2 text-sm w-full" autoFocus />
             </div>
             <div>

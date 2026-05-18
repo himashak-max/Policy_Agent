@@ -66,7 +66,7 @@ export default function ForgotPassword({ onBack }) {
         <div className="text-center mb-6">
           <h2 className="text-xl font-bold text-white">Reset Password</h2>
           <p className="text-xs text-slate-400 mt-1">
-            {step === 1 && 'Enter your EPF Number to begin'}
+            {step === 1 && 'Enter your Employee Number to begin'}
             {step === 2 && 'Answer your selected security questions'}
             {step === 3 && 'Set your new password'}
           </p>
@@ -81,7 +81,7 @@ export default function ForgotPassword({ onBack }) {
           <form onSubmit={step === 1 ? handleIdentify : (step === 2 ? handleVerify : handleReset)} className="space-y-4">
             {step === 1 && (
               <div>
-                <label className="block text-[10px] text-slate-400 mb-1">EPF Number (Username)</label>
+                <label className="block text-[10px] text-slate-400 mb-1">Employee Number</label>
                 <input type="text" value={username} onChange={e=>setUsername(e.target.value)} required className="input-field py-2 text-sm w-full" autoFocus />
               </div>
             )}

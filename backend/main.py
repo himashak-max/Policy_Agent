@@ -584,9 +584,6 @@ async def add_user(user_data: Dict[str, str]):
         cursor.execute("INSERT INTO Accounts (Username, Password, Role, Name, IsRegistered) VALUES (?, NULL, ?, ?, 0)",
                        user_data["username"], user_data["role"], user_data["name"])
         
-        # Log the action
-        log_document_action("USER_ADD", user_data["username"], 0, user_data.get("admin_id", "System"))
-        
         conn.commit()
         return {"message": "User authorized successfully. They can now register using their EPF."}
     finally: conn.close()
@@ -597,9 +594,6 @@ async def delete_user(username: str, admin_id: str = "System"):
     try:
         cursor = conn.cursor()
         cursor.execute("DELETE FROM Accounts WHERE Username = ?", username)
-        
-        # Log the action
-        log_document_action("USER_DELETE", username, 0, admin_id)
         
         conn.commit()
         return {"message": "User deleted"}
@@ -618,9 +612,6 @@ async def update_user(username: str, user_data: Dict[str, str]):
             cursor.execute("UPDATE Accounts SET Role=?, Name=? WHERE Username=?",
                            user_data["role"], user_data["name"], username)
             
-        # Log the action
-        log_document_action("USER_UPDATE", username, 0, user_data.get("admin_id", "System"))
-        
         conn.commit()
         return {"message": "User updated"}
     finally: conn.close()
